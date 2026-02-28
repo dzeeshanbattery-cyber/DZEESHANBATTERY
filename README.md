@@ -1,23 +1,27 @@
 # AI Invoice Stock Management App
 
-Python web app for stock management where invoice scanning is automatic and manual work is needed only for stock-name mismatch mapping.
+Working stock app with AI-style invoice extraction and automatic stock updates.
 
-## What it does
-- Seeds initial stock products `A` to `J` with quantity `10` each (first run only).
-- Supports **purchase invoice scan** to auto-add stock in bulk.
-- Supports **sale invoice scan** to auto-deduct stock in bulk.
-- Uses OCR (`tesseract`) + rule-based AI parsing to detect model and quantity lines.
-- Shows review step for mismatch cases:
-  - map invoice item to existing stock
-  - or create new stock item
-- Saves invoice files and full movement audit trail.
+## Flow
+1. Seed stock starts with products `A..J` and qty `10` each (first run).
+2. Upload purchase/sale invoice image/PDF/TXT.
+3. App extracts model + quantity from invoice text.
+4. Confident matches auto-update stock in bulk.
+5. Only mismatch items are shown for manual map/create.
+
+## Features
+- Purchase invoice adds stock.
+- Sale invoice deducts stock with negative stock protection.
+- Bulk multi-item invoice support.
+- Invoice + movement audit trail stored in SQLite.
+- Manual action only for mismatches.
 
 ## Run
 ```bash
 python app.py
 ```
-Open: `http://localhost:5000`
+Open `http://localhost:5000`
 
-## OCR dependency
-Install `tesseract` in your system for best scan quality.
-If OCR is not available, the app still opens and provides a fallback parser behavior.
+## OCR note
+For image/PDF scanning install `tesseract` on your machine.
+TXT invoices work without OCR.
